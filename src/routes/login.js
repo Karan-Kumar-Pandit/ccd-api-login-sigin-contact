@@ -1,6 +1,6 @@
 const Express = require("express");
 
-const ContactRoutes = Express.Router();
+const LoginRoutes = Express.Router();
 
 const ResponseHandler = require("../helpers/response-handler");
 
@@ -8,8 +8,8 @@ const UserAPIClient = require("../domain/users/api-client");
 
 // ------------------------------------------------------
 
-ContactRoutes.get("/total-contact-users", function(Request, Response) {
-    UserAPIClient.countContactUsers()
+LoginRoutes.get("/total-login-users", function(Request, Response) {
+    UserAPIClient.countLoginUsers()
         .then((value) => {
             let response = ResponseHandler.success(
                 value,
@@ -25,8 +25,8 @@ ContactRoutes.get("/total-contact-users", function(Request, Response) {
 
 // ------------------------------------------------------
 
-ContactRoutes.get("/contact-users", function(Request, Response) {
-    UserAPIClient.getContactUsers()
+LoginRoutes.get("/login-users", function(Request, Response) {
+    UserAPIClient.getLoginUsers()
         .then((value) => {
             let response = ResponseHandler.success(value, "User get successfully.");
             Response.send(response);
@@ -39,9 +39,9 @@ ContactRoutes.get("/contact-users", function(Request, Response) {
 
 // ------------------------------------------------------
 
-ContactRoutes.get("/user/:userId", function(Request, Response) {
+LoginRoutes.get("/login-user/:userId", function(Request, Response) {
     const userId = Request.params.userId;
-    UserAPIClient.getContactUserById(userId)
+    UserAPIClient.getLoginUserById(userId)
         .then((value) => {
             let response = ResponseHandler.success(value, "User get successfully.");
             Response.send(response);
@@ -54,9 +54,9 @@ ContactRoutes.get("/user/:userId", function(Request, Response) {
 
 // ------------------------------------------------------
 
-ContactRoutes.get("/user/name/:userName", function(Request, Response) {
+LoginRoutes.get("/login-user/name/:userName", function(Request, Response) {
     const userName = Request.params.userName;
-    UserAPIClient.getContactUserByName(userName)
+    UserAPIClient.getLoginUserByName(userName)
         .then((value) => {
             let response = ResponseHandler.success(value, "User get successfully.");
             Response.send(response);
@@ -68,10 +68,10 @@ ContactRoutes.get("/user/name/:userName", function(Request, Response) {
 });
 
 // ---------------------------------------------------
-ContactRoutes.post("/contact-users", function(Request, Response) {
+LoginRoutes.post("/login-users", function(Request, Response) {
     const payload = Request.body;
 
-    UserAPIClient.createContactUser(payload)
+    UserAPIClient.createLoginUsers(payload)
         .then((value) => {
             let response = ResponseHandler.success(
                 value,
@@ -86,11 +86,11 @@ ContactRoutes.post("/contact-users", function(Request, Response) {
 });
 
 // ---------------------------------------------------
-ContactRoutes.put("/contact-users/:userId", function(Request, Response) {
+LoginRoutes.put("/login-users/:userId", function(Request, Response) {
     const payload = Request.body;
     const userId = Request.params.userId;
 
-    UserAPIClient.updateContactUser(payload, userId)
+    UserAPIClient.updateLoginUser(payload, userId)
         .then((value) => {
             let response = ResponseHandler.success(
                 value,
@@ -104,10 +104,10 @@ ContactRoutes.put("/contact-users/:userId", function(Request, Response) {
         });
 });
 // ---------------------------------------------------
-ContactRoutes.delete("/contact-users/:userId", function(Request, Response) {
+LoginRoutes.delete("/login-users/:userId", function(Request, Response) {
     const userId = Request.params.userId;
 
-    UserAPIClient.deleteContactUser(userId)
+    UserAPIClient.deleteLoginUser(userId)
         .then((value) => {
             let response = ResponseHandler.success(
                 value,
@@ -122,5 +122,5 @@ ContactRoutes.delete("/contact-users/:userId", function(Request, Response) {
 });
 
 //-------------------------------------------------------
-module.exports = ContactRoutes;
+module.exports = LoginRoutes;
 //--------------------------------------------------------
